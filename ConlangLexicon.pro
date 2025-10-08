@@ -11,14 +11,17 @@ CONFIG += c++17
 SOURCES += \
     entry.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    newworddialog.cpp
 
 HEADERS += \
     entry.h \
-    mainwindow.h
+    mainwindow.h \
+    newworddialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    newworddialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

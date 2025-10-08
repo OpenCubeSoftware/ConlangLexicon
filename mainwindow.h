@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
+#include "entry.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,7 +19,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void addEntry(const Entry &entry);
+    void on_btnAddWord_clicked();
+
+    void on_listWidget_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
+    void loadEntries();
+    void saveEntries();
+    void setupConnections();
+
+    QString currentFile;
+    QVector<Entry> entries;
+
 };
 #endif // MAINWINDOW_H

@@ -21,7 +21,7 @@
        <widget class="QLineEdit" name="txtSearch"/>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btnAddWord">
         <property name="text">
          <string>Add Word</string>
         </property>
