@@ -6,28 +6,24 @@
 #include <QIODevice>
 #include <QFileDialog>
 #include <QJsonArray>
+#include <QStandardPaths>
 #include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+	 this->setWindowTitle("Conlang Lexicon");
 	 showLandingWindow();
-    // DEBUG ONLY
-		// currentFile = "/Volumes/MacSSD/Users/michael/Documents/aaa-kittylang.json";
-		// loadEntries();
-		// END DEBUG
-
-
 }
 
 void MainWindow::showLandingWindow()
 {
-		LandingWindow landingWindow;
-		setCentralWidget((QWidget)landingWindow);
+		landingWindow = new LandingWindow(this);
+		setCentralWidget(landingWindow);
 		QObject::connect(landingWindow, &LandingWindow::createNewLexicon, this, &MainWindow::handleCreateNewLexicon);
 		QObject::connect(landingWindow, &LandingWindow::openExistingLexicon, this, &MainWindow::handleOpenLexicon);
-		landingWindow.exec();
+		landingWindow->show();
 }
 
 MainWindow::~MainWindow()
@@ -37,22 +33,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::handleCreateNewLexicon()
 {
-		currentFile = QFileDialog::getSaveFileName(this, "Create New Lexicon", "", "JSON Files (*.json)");
+		currentFile = QFileDialog::getSaveFileName(this, "Create New Lexicon", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation), "JSON Files (*.json)");
 		if (currentFile.isEmpty()) {
 			return;
 		}
+		this->setWindowTitle("Conlang Lexicon - " + currentFile);
 		ui->setupUi(this);
 		saveEntries(); // save empty array to new file
+		this->show();
 }
 
 void MainWindow::handleOpenLexicon()
 {
-	currentFile = QFileDialog::getOpenFileName(this, "Open Lexicon", "", "JSON Files (*.json)");
+	currentFile = QFileDialog::getOpenFileName(this, "Open Lexicon", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation), "JSON Files (*.json)");
 	if (currentFile.isEmpty()) {
 		return;
 	}
+	this->setWindowTitle("Conlang Lexicon - " + currentFile);
 	ui->setupUi(this);
 	loadEntries();
+	this->show();
 }
 
 void MainWindow::addEntry(const Entry &entry)
@@ -120,6 +120,10 @@ void MainWindow::setupConnections()
 
 void MainWindow::backupFile(const QString &filePath)
 {
+	QFile file(filePath);
+	if (!file.exists()) {
+		return;
+	}
 	QDateTime currentTime = QDateTime::currentDateTime();
 	QString saveFileName = filePath + currentTime.toString("hhmmss") + ".bak";
 	QFile::copy(filePath, saveFileName);
@@ -139,7 +143,7 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
         for(const auto &example : entry.examples) {
             details += " - " + example + "\n";
         }
-        ui->detailsText->setText(details);
         details += "Notes: " + entry.notes + "\n";
+        ui->detailsText->setText(details);
     }
 }
