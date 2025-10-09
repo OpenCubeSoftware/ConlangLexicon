@@ -37,9 +37,9 @@ void MainWindow::handleCreateNewLexicon()
 		if (currentFile.isEmpty()) {
 			return;
 		}
-		this->setWindowTitle("Conlang Lexicon - " + currentFile);
 		ui->setupUi(this);
 		saveEntries(); // save empty array to new file
+		this->setWindowTitle("Conlang Lexicon");
 		this->show();
 }
 
@@ -49,9 +49,9 @@ void MainWindow::handleOpenLexicon()
 	if (currentFile.isEmpty()) {
 		return;
 	}
-	this->setWindowTitle("Conlang Lexicon - " + currentFile);
 	ui->setupUi(this);
 	loadEntries();
+	this->setWindowTitle("Conlang Lexicon");
 	this->show();
 }
 

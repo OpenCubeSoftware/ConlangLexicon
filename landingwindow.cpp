@@ -8,6 +8,7 @@ LandingWindow::LandingWindow(QWidget *parent) :
 	ui->setupUi(this);
 	connect(ui->btnNewLexicon, &QPushButton::clicked, this, &LandingWindow::createNewLexicon);
 	connect(ui->btnOpenLexicon, &QPushButton::clicked, this, &LandingWindow::openExistingLexicon);
+	this->setWindowTitle("Welcome to Conlang Lexicon!");
 }
 
 LandingWindow::~LandingWindow()

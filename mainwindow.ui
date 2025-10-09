@@ -18,7 +18,11 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLineEdit" name="txtSearch"/>
+       <widget class="QLineEdit" name="txtSearch">
+        <property name="placeholderText">
+         <string>Search - word or translation</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnAddWord">
