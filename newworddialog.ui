@@ -104,6 +104,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txtWord</tabstop>
+  <tabstop>txtTranslation</tabstop>
+  <tabstop>txtPartOfSpeech</tabstop>
+  <tabstop>txtEExamples</tabstop>
+  <tabstop>txtENotes</tabstop>
+  <tabstop>btnAddWord</tabstop>
+  <tabstop>btnAddAdditional</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "newworddialog.h"
 #include <QMessageBox>
+#include <QIODevice>
+#include <QJsonArray>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,7 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     // DEBUG ONLY
-    currentFile = "/Volumes/MacSSD/Users/michael/Documents/aaa-kittylang.json"
+		currentFile = "/Volumes/MacSSD/Users/michael/Documents/aaa-kittylang.json";
+		loadEntries();
+		// END DEBUG
+
 
 }
 
@@ -22,7 +28,7 @@ void MainWindow::addEntry(const Entry &entry)
 {
     entries.append(entry);
     ui->listWidget->addItem(entry.word + " - " + entry.translation);
-    //saveEntries();
+		saveEntries();
 }
 
 void MainWindow::on_btnAddWord_clicked()
@@ -35,6 +41,7 @@ void MainWindow::on_btnAddWord_clicked()
 
 void MainWindow::loadEntries()
 {
+    backupFile(currentFile);
     QFile file(currentFile);
     if (!file.open(QIODevice::ReadOnly)) {
         QMessageBox::critical(this, "Error", "Could not open file");
@@ -59,11 +66,32 @@ void MainWindow::loadEntries()
 void MainWindow::saveEntries()
 {
     QJsonArray jsonEntries;
+		for (const auto &entry : entries) {
+			QJsonObject entryObject;
+			entry.write(entryObject);
+			jsonEntries.append(entryObject);
+		}
+		QJsonDocument doc(jsonEntries);
+		QFile file(currentFile);
+
+		if (!file.open(QIODevice::WriteOnly)) {
+			 QMessageBox::critical(this, "Error", "Could not save file");
+		}
+
+		file.write(doc.toJson());
+
 }
 
 void MainWindow::setupConnections()
 {
 
+}
+
+void MainWindow::backupFile(const QString &filePath)
+{
+	QDateTime currentTime = QDateTime::currentDateTime();
+	QString saveFileName = filePath + currentTime.toString("hhmmss") + ".bak";
+	QFile::copy(filePath, saveFileName);
 }
 
 

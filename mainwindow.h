@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>
+#include <QFile>
+
 #include "entry.h"
 
 QT_BEGIN_NAMESPACE
@@ -30,6 +32,7 @@ private:
     void loadEntries();
     void saveEntries();
     void setupConnections();
+		void backupFile(const QString &filePath);
 
     QString currentFile;
     QVector<Entry> entries;
