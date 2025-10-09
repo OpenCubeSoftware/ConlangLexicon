@@ -13,6 +13,8 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+class LandingWindow;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -22,6 +24,8 @@ public:
     ~MainWindow();
 
 private slots:
+		void handleCreateNewLexicon();
+		void handleOpenLexicon();
     void addEntry(const Entry &entry);
     void on_btnAddWord_clicked();
 
@@ -29,6 +33,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+		LandingWindow *landingWindow;
+		void showLandingWindow();
     void loadEntries();
     void saveEntries();
     void setupConnections();

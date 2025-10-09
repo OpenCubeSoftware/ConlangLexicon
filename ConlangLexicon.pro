@@ -10,16 +10,19 @@ CONFIG += c++17
 
 SOURCES += \
     entry.cpp \
+    landingwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     newworddialog.cpp
 
 HEADERS += \
     entry.h \
+    landingwindow.h \
     mainwindow.h \
     newworddialog.h
 
 FORMS += \
+    landingwindow.ui \
     mainwindow.ui \
     newworddialog.ui
 

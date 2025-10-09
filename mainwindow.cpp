@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "newworddialog.h"
+#include "landingwindow.h"
 #include <QMessageBox>
 #include <QIODevice>
+#include <QFileDialog>
 #include <QJsonArray>
 #include <QDateTime>
 
@@ -10,18 +12,47 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	 showLandingWindow();
     // DEBUG ONLY
-		currentFile = "/Volumes/MacSSD/Users/michael/Documents/aaa-kittylang.json";
-		loadEntries();
+		// currentFile = "/Volumes/MacSSD/Users/michael/Documents/aaa-kittylang.json";
+		// loadEntries();
 		// END DEBUG
 
 
 }
 
+void MainWindow::showLandingWindow()
+{
+		LandingWindow landingWindow;
+		setCentralWidget((QWidget)landingWindow);
+		QObject::connect(landingWindow, &LandingWindow::createNewLexicon, this, &MainWindow::handleCreateNewLexicon);
+		QObject::connect(landingWindow, &LandingWindow::openExistingLexicon, this, &MainWindow::handleOpenLexicon);
+		landingWindow.exec();
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::handleCreateNewLexicon()
+{
+		currentFile = QFileDialog::getSaveFileName(this, "Create New Lexicon", "", "JSON Files (*.json)");
+		if (currentFile.isEmpty()) {
+			return;
+		}
+		ui->setupUi(this);
+		saveEntries(); // save empty array to new file
+}
+
+void MainWindow::handleOpenLexicon()
+{
+	currentFile = QFileDialog::getOpenFileName(this, "Open Lexicon", "", "JSON Files (*.json)");
+	if (currentFile.isEmpty()) {
+		return;
+	}
+	ui->setupUi(this);
+	loadEntries();
 }
 
 void MainWindow::addEntry(const Entry &entry)
@@ -112,4 +143,3 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
         details += "Notes: " + entry.notes + "\n";
     }
 }
-
