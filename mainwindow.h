@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>
+#include <QSortFilterProxyModel>
 #include <QFile>
 
 #include "entry.h"
@@ -41,8 +42,9 @@ private:
     void saveEntries();
     void setupConnections();
 		void backupFile(const QString &filePath);
-		void addEntryToListWidget(Entry &entry);
-
+		void addEntryToListWidget(const Entry &entry) const;
+		void addCurrentEntriesToListWidget() const;
+		void applySearchFilter(const QString &filterText) const;
     QString currentFile;
     QVector<Entry> entries;
 

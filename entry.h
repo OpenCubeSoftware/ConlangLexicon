@@ -18,6 +18,9 @@ public:
 
     void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
+		bool matchesSearch(const QString &search) const;
+		QString getListViewDisplay() const;
+		QString getFormattedPartOfSpeech() const;
 };
 
 #endif // ENTRY_H

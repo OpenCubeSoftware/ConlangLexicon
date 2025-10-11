@@ -131,9 +131,30 @@ void MainWindow::backupFile(const QString &filePath)
 	QFile::copy(filePath, saveFileName);
 }
 
-void MainWindow::addEntryToListWidget(Entry &entry)
+void MainWindow::addEntryToListWidget(const Entry &entry) const
 {
-	ui->listWidget->addItem(entry.word + " - " + entry.translation);
+	ui->listWidget->addItem( entry.getListViewDisplay());
+}
+
+void MainWindow::addCurrentEntriesToListWidget() const
+{
+	for (const auto &entry : entries) {
+		addEntryToListWidget(entry);
+	}
+}
+
+void MainWindow::applySearchFilter(const QString &filterText) const
+{
+	ui->listWidget->clear();
+	// show all items if search is empty
+	if (filterText == "")
+		addCurrentEntriesToListWidget();
+
+	for (const Entry& entry : entries) {
+		if (entry.matchesSearch(filterText)) {
+			addEntryToListWidget(entry);
+		}
+	}
 }
 
 
@@ -158,5 +179,6 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_txtSearch_textChanged(const QString &arg1)
 {
 	qDebug() << "Entered text is " << arg1;
+	applySearchFilter(arg1);
 }
 
