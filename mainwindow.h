@@ -31,6 +31,8 @@ private slots:
 
     void on_listWidget_itemClicked(QListWidgetItem *item);
 
+		void on_txtSearch_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 		LandingWindow *landingWindow;
@@ -39,6 +41,7 @@ private:
     void saveEntries();
     void setupConnections();
 		void backupFile(const QString &filePath);
+		void addEntryToListWidget(Entry &entry);
 
     QString currentFile;
     QVector<Entry> entries;

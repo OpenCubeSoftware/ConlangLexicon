@@ -58,7 +58,8 @@ void MainWindow::handleOpenLexicon()
 void MainWindow::addEntry(const Entry &entry)
 {
     entries.append(entry);
-    ui->listWidget->addItem(entry.word + " - " + entry.translation);
+		// ui->listWidget->addItem(entry.word + " - " + entry.translation);
+		addEntryToListWidget(entry);
 		saveEntries();
 }
 
@@ -90,7 +91,8 @@ void MainWindow::loadEntries()
         Entry entry;
         entry.read(entryValue.toObject());
         entries.append(entry);
-        ui->listWidget->addItem(entry.word + " - " + entry.translation);
+				//ui->listWidget->addItem(entry.word + " - " + entry.translation);
+				addEntryToListWidget(entry);
     }
 }
 
@@ -129,6 +131,11 @@ void MainWindow::backupFile(const QString &filePath)
 	QFile::copy(filePath, saveFileName);
 }
 
+void MainWindow::addEntryToListWidget(Entry &entry)
+{
+	ui->listWidget->addItem(entry.word + " - " + entry.translation);
+}
+
 
 void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
 {
@@ -147,3 +154,9 @@ void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
         ui->detailsText->setText(details);
     }
 }
+
+void MainWindow::on_txtSearch_textChanged(const QString &arg1)
+{
+	qDebug() << "Entered text is " << arg1;
+}
+
