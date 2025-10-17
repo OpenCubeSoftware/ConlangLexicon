@@ -48,7 +48,9 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "on_btnAddWord_clicked",
         "on_listWidget_itemClicked",
         "QListWidgetItem*",
-        "item"
+        "item",
+        "on_txtSearch_textChanged",
+        "arg1"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -65,6 +67,10 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         // Slot 'on_listWidget_itemClicked'
         QtMocHelpers::SlotData<void(QListWidgetItem *)>(8, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 9, 10 },
+        }}),
+        // Slot 'on_txtSearch_textChanged'
+        QtMocHelpers::SlotData<void(const QString &)>(11, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QString, 12 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
@@ -94,6 +100,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->addEntry((*reinterpret_cast< std::add_pointer_t<Entry>>(_a[1]))); break;
         case 3: _t->on_btnAddWord_clicked(); break;
         case 4: _t->on_listWidget_itemClicked((*reinterpret_cast< std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 5: _t->on_txtSearch_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
         }
     }
@@ -118,14 +125,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

@@ -34,19 +34,24 @@ private slots:
 
 		void on_txtSearch_textChanged(const QString &arg1);
 
+		void on_actionOpen_triggered();
+
+		void on_actionNew_triggered();
+
 private:
     Ui::MainWindow *ui;
 		LandingWindow *landingWindow;
 		void showLandingWindow();
     void loadEntries();
     void saveEntries();
-    void setupConnections();
+		void sortEntries();
 		void backupFile(const QString &filePath);
 		void addEntryToListWidget(const Entry &entry) const;
 		void addCurrentEntriesToListWidget() const;
-		void applySearchFilter(const QString &filterText) const;
+		void applySearchFilter(const QString &filterText);
     QString currentFile;
     QVector<Entry> entries;
+		QVector<Entry> filteredEntries;
 
 };
 #endif // MAINWINDOW_H
