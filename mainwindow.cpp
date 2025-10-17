@@ -68,8 +68,9 @@ void MainWindow::handleOpenLexicon()
 void MainWindow::addEntry(const Entry &entry)
 {
     entries.append(entry);
-		// ui->listWidget->addItem(entry.word + " - " + entry.translation);
-		addEntryToListWidget(entry);
+		sortEntries();
+		ui->listWidget->clear();
+		addCurrentEntriesToListWidget();
 		saveEntries();
 }
 

@@ -47,6 +47,7 @@ private:
 		void sortEntries();
 		void backupFile(const QString &filePath);
 		void addEntryToListWidget(const Entry &entry) const;
+
 		void addCurrentEntriesToListWidget() const;
 		void applySearchFilter(const QString &filterText);
     QString currentFile;
