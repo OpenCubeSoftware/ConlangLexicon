@@ -89,6 +89,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        txtSearch->setPlaceholderText(QCoreApplication::translate("MainWindow", "Search - word or translation", nullptr));
         btnAddWord->setText(QCoreApplication::translate("MainWindow", "Add Word", nullptr));
     } // retranslateUi
 
